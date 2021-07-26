@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -60,11 +61,39 @@ class HomePage extends StatelessWidget {
           ],
       ),
 
-      // TODO: Add a grid view (102)
-      body: Center(
-        child: Text('You did it!'),
-      ),
 
+      // TODO: Add a grid view (102)
+      //body: Center(child: Text('You did it!'), ),
+      body: GridView.count(
+        crossAxisCount: 2,
+        padding: EdgeInsets.all(16.0),
+        childAspectRatio: 8.0 / 9.0,
+        children: <Widget>[
+          Card(
+            clipBehavior: Clip.antiAlias,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget> [
+                AspectRatio(
+                    aspectRatio: 18.0 / 11.0,
+                    child: Image.asset('assets/diamond.png'),
+                ),
+                Padding(
+                    padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start ,
+                      children: <Widget> [
+                        Text('Title'),
+                        SizedBox(height: 8.0),
+                        Text('Secondary text'),
+                      ],
+                    ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
 
       // TODO: Set resizeToAvoidBottomInset (101)
       resizeToAvoidBottomInset: false,
