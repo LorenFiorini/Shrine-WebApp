@@ -21,7 +21,7 @@ import 'model/product.dart';
 
 class HomePage extends StatelessWidget {
 
-  // TODO: Make a collection of cards (102)
+  //  Make a collection of cards (102)
   List<Card> _buildGridCards(BuildContext context) {
     List<Product> products = ProductsRepository.loadProducts(Category.all);
 
@@ -39,9 +39,10 @@ class HomePage extends StatelessWidget {
         // TODO: Adjust card heights (103)
 
         child: Column(
-          // TODO: Center items on the card (103)
 
-          crossAxisAlignment: CrossAxisAlignment.start,
+          //  Center items on the card (103)
+          crossAxisAlignment: CrossAxisAlignment.center,//CrossAxisAlignment.start,
+
           children: <Widget>[
             AspectRatio(
               aspectRatio: 18 / 11,
@@ -49,31 +50,33 @@ class HomePage extends StatelessWidget {
 
                 product.assetName,
                 package: product.assetPackage,
-                // TODO: Adjust the box size (102)
-                fit: BoxFit.scaleDown, //fitWidth
+                //  Adjust the box size (102)
+                fit: BoxFit.fitWidth, //fitWidth
               ),
             ),
             Expanded(
               child: Padding(
                 padding: EdgeInsets.fromLTRB(16.0, 12.0, 16.0, 8.0),
                 child: Column(
-                  // TODO: Align labels to the bottom and center (103)
 
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  // TODO: Change innermost Column (103)
+                  //  Align labels to the bottom and center (103)
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center, //CrossAxisAlignment.start,
 
+                  //  Change innermost Column (103)
                   children: <Widget>[
                     // TODO: Handle overflowing labels (103)
-
                     Text(
                       product.name,
-                      style: theme.textTheme.headline6,
+                      style: theme.textTheme.button, //style: theme.textTheme.headline6,
+                      softWrap: false,
+                      overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
-                    SizedBox(height: 8.0),
+                    SizedBox(height: 6.0),
                     Text(
                       formatter.format(product.price),
-                      style: theme.textTheme.subtitle2,
+                      style: theme.textTheme.caption, //style: theme.textTheme.subtitle2,
                     ),
                   ],
                 ),
@@ -123,7 +126,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
 
 
-      // TODO: Add app bar (102)
+      // Add app bar (102)
       appBar: AppBar(
           title: Text('SHRINE'),
           leading: IconButton(
@@ -160,7 +163,7 @@ class HomePage extends StatelessWidget {
       ),
 
 
-      // TODO: Add a grid view (102)
+      //  Add a grid view (102)
       //body: Center(child: Text('You did it!'), ),
       body: GridView.count(
         crossAxisCount: 2,
@@ -194,7 +197,7 @@ class HomePage extends StatelessWidget {
         ],*/ // Replaced by _buildGridCards(int)
       ),
 
-      // TODO: Set resizeToAvoidBottomInset (101)
+      //  Set resizeToAvoidBottomInset (101)
       resizeToAvoidBottomInset: false,
     );
   }
