@@ -21,8 +21,8 @@ class ProductsRepository {
         category: Category.accessories,
         id: 0,
         isFeatured: true,
-        name: 'Speed cube',
-        price: 19,
+        name: 'Vagabond sack',
+        price: 119,
       ),
       Product(
         category: Category.accessories,
@@ -283,13 +283,7 @@ class ProductsRepository {
         name: 'Fine lines tee',
         price: 58,
       ),
-      Product(
-        category: Category.accessories,
-        id: 38,
-        isFeatured: true,
-        name: 'Vagabond sack',
-        price: 119,
-      ),
+
     ];
     if (category == Category.all) {
       return allProducts;

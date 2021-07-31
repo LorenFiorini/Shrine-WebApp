@@ -41,7 +41,8 @@ class AsymmetricView extends StatelessWidget {
       if (index % 2 == 0) {
         /// Even cases
         int bottom = _evenCasesIndex(index);
-        column = TwoProductCardColumn(
+        column = //Expanded(child:
+        TwoProductCardColumn(
             bottom: products[bottom],
             top: products.length - 1 >= bottom + 1
                 ? products[bottom + 1]
@@ -49,16 +50,22 @@ class AsymmetricView extends StatelessWidget {
         width += 32.0;
       } else {
         /// Odd cases
-        column = OneProductCardColumn(
+        column = //Expanded(child:
+            OneProductCardColumn(
           product: products[_oddCasesIndex(index)],
+            //)
         );
       }
       return Container(
         width: width,
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
-          child: column,
-        ),
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            /*child: Expanded(
+                flex: 2,
+                child: column,
+            ),*/
+            child: column,
+          ),
       );
     }).toList();
   }
