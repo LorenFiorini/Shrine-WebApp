@@ -15,6 +15,9 @@ class ShrineApp extends StatelessWidget {
     return MaterialApp(
       title: 'Shrine',
       // Change home: to a Backdrop with a HomePage frontLayer (104)
+      // TODO: Make currentCategory field take _currentCategory (104)
+      // TODO: Pass _currentCategory for frontLayer (104)
+      // TODO: Change backLayer field value to CategoryMenuPage (104)
       //home: HomePage(),
       home: Backdrop(
         currentCategory: Category.all,
@@ -23,9 +26,7 @@ class ShrineApp extends StatelessWidget {
         frontTitle: Text("SHRINE"),
         backTitle: Text("MENU"),
       ),
-      // TODO: Make currentCategory field take _currentCategory (104)
-      // TODO: Pass _currentCategory for frontLayer (104)
-      // TODO: Change backLayer field value to CategoryMenuPage (104)
+
       initialRoute: '/login',
       onGenerateRoute: _getRoute,
       // TODO: Add a theme (103)

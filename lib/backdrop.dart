@@ -25,11 +25,39 @@ class Backdrop extends StatefulWidget {
 }
 
 
-// TODO: Add _FrontLayer class (104)
+//  Add _FrontLayer class (104)
+class _FrontLayer extends StatelessWidget {
+  const _FrontLayer({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context){
+    return Material(
+      elevation: 16,
+      shape: BeveledRectangleBorder(
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(46)),
+      ),
+      child: Column (
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Expanded(
+            child: child,
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 // TODO: Add _BackdropTitle class (104)
 
-// TODO: Add _BackdropState class (104)
+
+
+// Add _BackdropState class (104)
 class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin {
   final GlobalKey _backdropKey = GlobalKey(debugLabel: 'Backdrop');
 
@@ -37,7 +65,9 @@ class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin
     return Stack(
       key: _backdropKey, children: <Widget>[
         widget.backLayer,
-        widget.frontLayer,
+
+        //widget.frontLayer,
+        _FrontLayer(child: widget.frontLayer),
       ],
     );
   }
