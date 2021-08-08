@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
-
 import 'package:Shrine/model/product.dart';
 
-// TODO: Add velocity constant (104)
+//  Add velocity constant (104)
+const double _kflingVelocity = 2.0;
 
 class Backdrop extends StatefulWidget {
   final Category currentCategory;
@@ -60,18 +60,80 @@ class _FrontLayer extends StatelessWidget {
 // Add _BackdropState class (104)
 class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin {
   final GlobalKey _backdropKey = GlobalKey(debugLabel: 'Backdrop');
-
+  late AnimationController _controller;
+/*
   Widget _buildStack() {
     return Stack(
-      key: _backdropKey, children: <Widget>[
-        widget.backLayer,
-
+      key: _backdropKey,
+      children: <Widget>[
+        //widget.backLayer,
+        ExcludeSemantics(
+          child: widget.backLayer,
+          excluding: _frontLayerVisible,
+        ),
         //widget.frontLayer,
         _FrontLayer(child: widget.frontLayer),
       ],
     );
+  }*/
+  Widget _buildStack(BuildContext context, BoxConstraints constraints) {
+    const double layerTitleHeight = 48.0;
+    final Size layerSize = constraints.biggest;
+    final double layerTop = layerSize.height - layerTitleHeight;
+
+    Animation<RelativeRect> layerAnimation = RelativeRectTween(
+      begin: RelativeRect.fromLTRB(
+          0.0, layerTop, 0.0, layerTop - layerSize.height),
+      end: RelativeRect.fromLTRB(0.0, 0.0, 0.0, 0.0),
+    ).animate(_controller.view);
+
+    return Stack(
+      key: _backdropKey,
+      children: <Widget>[
+        ExcludeSemantics(
+          child: widget.backLayer,
+          excluding: _frontLayerVisible,
+        ),
+        PositionedTransition(
+          rect: layerAnimation,
+          child: _FrontLayer(
+            child: widget.frontLayer,
+          ),
+        ),
+      ],
+    );
   }
 
+
+  //The initState() method is only called once, before the widget is part of its render tree.
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: Duration(milliseconds: 300),
+      value: 1.0,
+      vsync: this,
+    );
+  }
+
+  //The dispose() method is also only called once, when the widget is removed from its tree for good.
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  // CHANGE VISIBILITY
+  bool get _frontLayerVisible {
+    final AnimationStatus status = _controller.status;
+    return status == AnimationStatus.completed || status == AnimationStatus.forward;
+  }
+
+  void _toggleBackdropLayerVisibility() {
+    _controller.fling(
+      velocity: _frontLayerVisible? -_kflingVelocity : _kflingVelocity
+    );
+  }
 
   @override
   Widget build(BuildContext) {
@@ -80,7 +142,11 @@ class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin
       elevation: 0.5,
       title: Text('SHRINE'),
       titleSpacing: 0,
-      leading: Icon(Icons.menu),
+      //leading: Icon(Icons.menu), add button
+      leading: IconButton(
+        icon: Icon(Icons.menu),
+        onPressed: _toggleBackdropLayerVisibility,
+      ),
       actions: <Widget>
       [
         IconButton(
@@ -108,7 +174,8 @@ class _BackdropState extends State<Backdrop> with SingleTickerProviderStateMixin
 
     return Scaffold(
       appBar: appBar,
-      body: _buildStack(),
+      //body: _buildStack(),
+      body: LayoutBuilder(builder: _buildStack),
     );
   }
 }
