@@ -6,23 +6,45 @@ import 'login.dart';
 import 'colors.dart';
 import 'backdrop.dart';
 import 'model/product.dart';
+import 'category_menu_page.dart';
 
-// TODO: Convert ShrineApp to stateful widget (104)
-class ShrineApp extends StatelessWidget {
-  
+
+class ShrineApp extends StatefulWidget {
+  @override
+  _ShrineAppState createState() {
+    return _ShrineAppState();
+  }
+}
+
+
+//  Convert ShrineApp to stateful widget (104)
+class _ShrineAppState extends State<ShrineApp> {
+  Category _currentCategory = Category.all;
+
+  void _onCategoryTap(Category category) {
+    setState(() {
+      _currentCategory = category;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Shrine',
       // Change home: to a Backdrop with a HomePage frontLayer (104)
-      // TODO: Make currentCategory field take _currentCategory (104)
-      // TODO: Pass _currentCategory for frontLayer (104)
-      // TODO: Change backLayer field value to CategoryMenuPage (104)
+      //  Make currentCategory field take _currentCategory (104)
+      //  Pass _currentCategory for frontLayer (104)
+      //  Change backLayer field value to CategoryMenuPage (104)
       //home: HomePage(),
       home: Backdrop(
         currentCategory: Category.all,
-        frontLayer: HomePage(),
-        backLayer: Container(color: kShrinePink100,),
+        //frontLayer: HomePage(),
+        frontLayer: HomePage(category: _currentCategory),
+        //backLayer: Container(color: kShrinePink100,),
+        backLayer: CategoryMenuPage(
+          currentCategory: _currentCategory,
+          onCategoryTap: _onCategoryTap,
+        ),
         frontTitle: Text("SHRINE"),
         backTitle: Text("MENU"),
       ),
@@ -119,14 +141,14 @@ ThemeData _buildShrineTheme() {
       backwardsCompatibility: false,
     ),
 
-    // TODO: Add the text themes (103)
+    //  Add the text themes (103)
     textTheme: _buildShrineTextTheme(base.textTheme),
     primaryTextTheme: _buildShrineTextTheme(base.primaryTextTheme),
     textSelectionTheme: TextSelectionThemeData(
       selectionColor: kShrinePink100,
     ),
 
-    // TODO: Add the icon themes (103)
+    //  Add the icon themes (103)
 
     //  Decorate the inputs (103)
     inputDecorationTheme: InputDecorationTheme(

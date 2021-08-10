@@ -41,12 +41,16 @@ class AsymmetricView extends StatelessWidget {
       if (index % 2 == 0) {
         /// Even cases
         int bottom = _evenCasesIndex(index);
-        column = //Expanded(child:
-        TwoProductCardColumn(
-            bottom: products[bottom],
-            top: products.length - 1 >= bottom + 1
-                ? products[bottom + 1]
-                : null);
+        if (products.length - 1 >= bottom + 1) {
+          column = TwoProductCardColumn(
+              bottom: products[bottom],
+              top: products[bottom + 1],
+          );
+        } else {
+          column = OneProductCardColumn(
+            product: products[bottom],
+          );
+        }
         width += 32.0;
       } else {
         /// Odd cases
