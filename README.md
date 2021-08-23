@@ -1,6 +1,5 @@
-# MDC-100 Series of Codelabs
+# Shrine WebApp
 
-## Getting Started
+ This is a basic web app that simulates an E-commerce site.
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+ It was built using Flutter SDK.

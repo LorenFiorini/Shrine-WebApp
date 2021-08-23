@@ -42,7 +42,6 @@ class _ShrineAppState extends State<ShrineApp> {
 
       initialRoute: '/login',
       onGenerateRoute: _getRoute,
-      // TODO: Add a theme (103)
       theme: _kShrineTheme,
     );
   }
@@ -61,7 +60,6 @@ class _ShrineAppState extends State<ShrineApp> {
 }
 
 
-// TODO: Build a Shrine Theme (103)
 final ThemeData _kShrineTheme = _buildShrineTheme();
 
 ThemeData _buildShrineTheme() {
